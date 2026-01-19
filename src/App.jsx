@@ -2,6 +2,15 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./App.css";
 
+// ✅ Logo (safe)
+import logoImg from "./assets/logo.png";
+
+// ✅ Real photo gallery (local images)
+import dog1 from "./assets/gallery/dog1.jpg";
+import dog2 from "./assets/gallery/dog2.jpg";
+import dog3 from "./assets/gallery/dog3.jpg";
+import dog4 from "./assets/gallery/dog4.jpg";
+
 const PHONE = "07501 524137";
 const PHONE_TEL = "tel:07501524137";
 const EMAIL = "tara.petservices@gmail.com";
@@ -11,9 +20,7 @@ function BoneDivider({ label = "paw-some vibes" }) {
   return (
     <div className="divider">
       <span className="divider-line" />
-      <span className="divider-bone" aria-hidden="true">
-        🦴
-      </span>
+      <span className="divider-bone" aria-hidden="true">🦴</span>
       <span className="divider-text">{label} 🐾</span>
       <span className="divider-line" />
     </div>
@@ -23,7 +30,6 @@ function BoneDivider({ label = "paw-some vibes" }) {
 function Layout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Close menu on escape
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Escape") setMenuOpen(false);
@@ -32,12 +38,9 @@ function Layout({ children }) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Prevent body scroll when menu open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
   return (
@@ -45,17 +48,15 @@ function Layout({ children }) {
       <header className="tps-header">
         <div className="container header-row">
           <Link to="/" className="logo" onClick={() => setMenuOpen(false)}>
-            {/* ORIGINAL (NO LOGO FILE) */}
-            <div className="logo-circle" aria-hidden="true">
-              🐾
-            </div>
+            {/* ✅ Logo image */}
+            <img className="logo-image" src={logoImg} alt="Tara Pet Services logo" />
+
             <div>
               <div className="logo-title">Tara Pet Services ✨</div>
               <div className="logo-sub">Dog Walking &amp; Pet Sitting • extra cuddles included</div>
             </div>
           </Link>
 
-          {/* Desktop nav */}
           <nav className="tps-nav desktop-nav" aria-label="Main">
             <Link to="/services">🦴 Services</Link>
             <Link to="/about">🐾 About</Link>
@@ -71,7 +72,6 @@ function Layout({ children }) {
               📅 Request Booking
             </Link>
 
-            {/* Burger (tablet/mobile) */}
             <button
               className="burger"
               type="button"
@@ -86,7 +86,6 @@ function Layout({ children }) {
           </div>
         </div>
 
-        {/* Mobile/Tablet Menu */}
         {menuOpen && (
           <>
             <div className="menu-backdrop" onClick={() => setMenuOpen(false)} />
@@ -99,18 +98,10 @@ function Layout({ children }) {
               </div>
 
               <div className="menu-links">
-                <Link to="/services" onClick={() => setMenuOpen(false)}>
-                  🦴 Services
-                </Link>
-                <Link to="/about" onClick={() => setMenuOpen(false)}>
-                  🐾 About
-                </Link>
-                <Link to="/areas" onClick={() => setMenuOpen(false)}>
-                  🗺️ Areas
-                </Link>
-                <Link to="/contact" onClick={() => setMenuOpen(false)}>
-                  💌 Contact
-                </Link>
+                <Link to="/services" onClick={() => setMenuOpen(false)}>🦴 Services</Link>
+                <Link to="/about" onClick={() => setMenuOpen(false)}>🐾 About</Link>
+                <Link to="/areas" onClick={() => setMenuOpen(false)}>🗺️ Areas</Link>
+                <Link to="/contact" onClick={() => setMenuOpen(false)}>💌 Contact</Link>
               </div>
 
               <div className="menu-cta">
@@ -129,9 +120,7 @@ function Layout({ children }) {
                     @{INSTAGRAM}
                   </a>
                 </div>
-                <div>
-                  ✉ Email: <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-                </div>
+                <div>✉ Email: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></div>
               </div>
             </div>
           </>
@@ -150,12 +139,8 @@ function Layout({ children }) {
 
           <div>
             <strong>Contact</strong>
-            <p>
-              📞 <a href={PHONE_TEL}>{PHONE}</a>
-            </p>
-            <p>
-              ✉ <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-            </p>
+            <p>📞 <a href={PHONE_TEL}>{PHONE}</a></p>
+            <p>✉ <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
             <p>
               📷{" "}
               <a href={`https://instagram.com/${INSTAGRAM}`} target="_blank" rel="noreferrer">
@@ -166,18 +151,10 @@ function Layout({ children }) {
 
           <div>
             <strong>Quick Links</strong>
-            <p>
-              <Link to="/services">🦴 Services</Link>
-            </p>
-            <p>
-              <Link to="/contact">💌 Contact</Link>
-            </p>
-            <p>
-              <Link to="/register">📅 Request Booking</Link>
-            </p>
-            <p>
-              <Link to="/login">🔐 Client Login</Link>
-            </p>
+            <p><Link to="/services">🦴 Services</Link></p>
+            <p><Link to="/contact">💌 Contact</Link></p>
+            <p><Link to="/register">📅 Request Booking</Link></p>
+            <p><Link to="/login">🔐 Client Login</Link></p>
           </div>
         </div>
 
@@ -200,56 +177,28 @@ function Home() {
             </p>
 
             <div className="tps-actions">
-              <Link to="/register" className="btn btn-solid">
-                🐕‍🦺 Request a Booking
-              </Link>
-              <a href={PHONE_TEL} className="btn btn-light">
-                📞 Call {PHONE}
-              </a>
+              <Link to="/register" className="btn btn-solid">🐕‍🦺 Request a Booking</Link>
+              <a href={PHONE_TEL} className="btn btn-light">📞 Call {PHONE}</a>
             </div>
 
             <div className="pill-grid">
-              <div className="pill">
-                <strong>Reliable &amp; caring</strong>
-                <br />
-                gentle, patient &amp; friendly
-              </div>
-              <div className="pill">
-                <strong>Local &amp; flexible</strong>
-                <br />
-                Trawsfynydd + nearby
-              </div>
-              <div className="pill">
-                <strong>Walk updates</strong>
-                <br />
-                GPS + photos + videos
-              </div>
+              <div className="pill"><strong>Reliable &amp; caring</strong><br />gentle, patient &amp; friendly</div>
+              <div className="pill"><strong>Local &amp; flexible</strong><br />Trawsfynydd + nearby</div>
+              <div className="pill"><strong>Walk updates</strong><br />GPS + photos + videos</div>
             </div>
           </div>
 
           <div className="card hero-card">
             <div className="card-title">How bookings work 📨</div>
             <ol className="steps">
-              <li>
-                <span className="step-badge">1</span> Create an account &amp; add your pets
-              </li>
-              <li>
-                <span className="step-badge">2</span> Send a booking request message
-              </li>
-              <li>
-                <span className="step-badge">3</span> I accept/decline (then it’s booked!)
-              </li>
-              <li>
-                <span className="step-badge">4</span> Get updates after walks 🐾
-              </li>
+              <li><span className="step-badge">1</span> Create an account &amp; add your pets</li>
+              <li><span className="step-badge">2</span> Send a booking request message</li>
+              <li><span className="step-badge">3</span> I accept/decline (then it’s booked!)</li>
+              <li><span className="step-badge">4</span> Get updates after walks 🐾</li>
             </ol>
             <div className="hero-card-cta">
-              <Link to="/register" className="btn btn-solid">
-                ✨ Get Started
-              </Link>
-              <Link to="/services" className="btn btn-light">
-                🦴 View Services
-              </Link>
+              <Link to="/register" className="btn btn-solid">✨ Get Started</Link>
+              <Link to="/services" className="btn btn-light">🦴 View Services</Link>
             </div>
           </div>
         </div>
@@ -283,6 +232,26 @@ function Home() {
             </div>
 
             <div className="card">
+              <div className="card-title">🐾 Puppy Visits</div>
+              <p>Toilet breaks, playtime, feeding and gentle routine support for puppies.</p>
+              <div className="tags">
+                <span className="tag">routine</span>
+                <span className="tag">play</span>
+                <span className="tag">support</span>
+              </div>
+            </div>
+
+            <div className="card">
+              <div className="card-title">🐱 Cat Visits</div>
+              <p>Feeding, litter, play and cuddles while you’re away — calm and gentle.</p>
+              <div className="tags">
+                <span className="tag">feeding</span>
+                <span className="tag">litter</span>
+                <span className="tag">snuggles</span>
+              </div>
+            </div>
+
+            <div className="card">
               <div className="card-title">🧾 Invoices &amp; Records</div>
               <p>Clear visit history and invoices inside your client portal.</p>
               <div className="tags">
@@ -295,34 +264,19 @@ function Home() {
         </div>
       </section>
 
-      <BoneDivider label="meet the pets" />
+      <BoneDivider label="real photos" />
 
+      {/* ✅ Real photo gallery section */}
       <section className="section section-soft">
         <div className="container">
-          <div className="section-title">Meet the Pets (coming soon!) 📸</div>
-          <p className="section-sub">Cute walk snaps and happy faces (with owner permission, of course).</p>
+          <div className="section-title">Real walk photos 📸</div>
+          <p className="section-sub">A few snaps from adventures (with owner permission).</p>
 
-          <div className="gallery-grid">
-            <div className="gallery-card">
-              <div className="gallery-emoji">🐶</div>
-              <div className="gallery-name">Paws McFluff</div>
-              <div className="gallery-note">professional tail-wagger</div>
-            </div>
-            <div className="gallery-card">
-              <div className="gallery-emoji">🐕</div>
-              <div className="gallery-name">Sir Barks-a-lot</div>
-              <div className="gallery-note">sniff detective</div>
-            </div>
-            <div className="gallery-card">
-              <div className="gallery-emoji">🐾</div>
-              <div className="gallery-name">Miss Wiggles</div>
-              <div className="gallery-note">treat connoisseur</div>
-            </div>
-            <div className="gallery-card">
-              <div className="gallery-emoji">🐱</div>
-              <div className="gallery-name">Captain Purr</div>
-              <div className="gallery-note">nap supervisor</div>
-            </div>
+          <div className="photo-grid">
+            <PhotoCard src={dog1} alt="Dog walk photo 1" />
+            <PhotoCard src={dog2} alt="Dog walk photo 2" />
+            <PhotoCard src={dog3} alt="Dog walk photo 3" />
+            <PhotoCard src={dog4} alt="Dog walk photo 4" />
           </div>
         </div>
       </section>
@@ -349,9 +303,7 @@ function Home() {
           </div>
 
           <div className="center-cta">
-            <Link to="/register" className="btn btn-solid">
-              ✨ Request a Booking
-            </Link>
+            <Link to="/register" className="btn btn-solid">✨ Request a Booking</Link>
           </div>
         </div>
       </section>
@@ -359,22 +311,24 @@ function Home() {
   );
 }
 
+function PhotoCard({ src, alt }) {
+  return (
+    <div className="photo-card">
+      <img src={src} alt={alt} className="photo-img" />
+    </div>
+  );
+}
+
 function SimplePage({ title, text, emoji = "🐾" }) {
   return (
     <section className="section">
       <div className="container column">
-        <div className="page-title">
-          {emoji} {title}
-        </div>
+        <div className="page-title">{emoji} {title}</div>
         <div className="card">
           {text}
           <div className="mini-cta">
-            <Link to="/register" className="btn btn-solid">
-              📅 Request Booking
-            </Link>
-            <Link to="/contact" className="btn btn-light">
-              💌 Ask a Question
-            </Link>
+            <Link to="/register" className="btn btn-solid">📅 Request Booking</Link>
+            <Link to="/contact" className="btn btn-light">💌 Ask a Question</Link>
           </div>
         </div>
       </div>
