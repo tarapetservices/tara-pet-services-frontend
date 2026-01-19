@@ -10,6 +10,12 @@ import dog1 from "./assets/gallery/dog1.jpg";
 import dog2 from "./assets/gallery/dog2.jpg";
 import dog3 from "./assets/gallery/dog3.jpg";
 import dog4 from "./assets/gallery/dog4.jpg";
+import dog5 from "./assets/gallery/dog5.jpg";
+import dog6 from "./assets/gallery/dog6.jpg";
+import dog7 from "./assets/gallery/dog7.jpg";
+import dog8 from "./assets/gallery/dog8.jpg";
+import dog9 from "./assets/gallery/dog9.jpg";
+import dog10 from "./assets/gallery/dog10.jpg";
 
 const PHONE = "07501 524137";
 const PHONE_TEL = "tel:07501524137";
@@ -273,11 +279,17 @@ function Home() {
           <p className="section-sub">A few snaps from adventures (with owner permission).</p>
 
           <div className="photo-grid">
-            <PhotoCard src={dog1} alt="Dog walk photo 1" />
-            <PhotoCard src={dog2} alt="Dog walk photo 2" />
-            <PhotoCard src={dog3} alt="Dog walk photo 3" />
-            <PhotoCard src={dog4} alt="Dog walk photo 4" />
-          </div>
+  {[
+    dog1, dog2, dog3, dog4, dog5,
+    dog6, dog7, dog8, dog9, dog10
+  ].map((src, i) => (
+    <PhotoCard
+      key={i}
+      src={src}
+      alt={`Dog walk photo ${i + 1}`}
+    />
+  ))}
+</div>
         </div>
       </section>
 
